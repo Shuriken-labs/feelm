@@ -171,23 +171,24 @@ export const StyledHeaderDesktop = styled.header`
             align-items: center;
 
             li {
-              width: 30px;
-              height: 30px;
-              font-size: 18px;
+              width: 50px;
+              height: 33px;
+              font-size: 20px;
               display: flex;
               align-items: center;
               justify-content: center;
               cursor: pointer;
               transition: 0.3s;
-              border-radius: 5px;
+              border-radius: 7px;
               margin: 0 3px;
 
               &.bits {
                 span {
                   display: none;
                   font-size: 13px;
-                  font-weight: 500;
+                  font-weight: 800;
                   margin-left: 5px;
+                  margin-right: 5px;
                 }
 
                 &:hover {
@@ -219,7 +220,7 @@ export const StyledHeaderDesktop = styled.header`
         font-size: 21px;
         margin: 0 8px;
         &.bits {
-          width: 95px;
+          width: 150px;
           font-size: 17px;
           background-color: ${(props) => props.theme.bits};
 

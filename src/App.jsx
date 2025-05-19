@@ -22,6 +22,8 @@ import PageLive from "./views/Following/PageLive";
 import PageVideos from "./views/Following/PageVideos";
 import PageCategories from "./views/Following/PageCategories";
 
+
+
 const App = () => {
   const { darkStatus, sideBarStatus } = useSelector((state) => state.site);
   const [mySize, setMySize] = useState(window.innerWidth);
@@ -39,32 +41,34 @@ const App = () => {
   }, [mySize]);
 
   return (
-    <ThemeProvider theme={darkStatus ? darkTheme : lightTheme}>
-      <GlobalStyles />
-      <div className="app">
-        <Header mySize={mySize} />
-        <div
-          className={`main ${
-            sideBarStatus && mySize > 1199 ? "sidebar-open" : ""
-          }`}
-        >
-          <Routes>
-            <Route path="*" element={<Navigate to="/" replace />} />
-            <Route path="/" element={<Home />} />
-            <Route path="/following/" element={<Following />}>
-              <Route index element={<PageOverview />} />
-              <Route path="live" element={<PageLive />} />
-              <Route path="videos" element={<PageVideos />} />
-              <Route path="categories" element={<PageCategories />} />
-            </Route>
-            <Route path="/browse/" element={<Browse />}>
-              <Route index element={<PageAllCategories />} />
-              <Route path="all" element={<PageAllLive />} />
-            </Route>
-          </Routes>
+    // <StarknetConfig chains={chains} provider={provider} connectors={connectors}>
+      <ThemeProvider theme={darkStatus ? darkTheme : lightTheme}>
+        <GlobalStyles />
+        <div className="app">
+          <Header mySize={mySize} />
+          <div
+            className={`main ${
+              sideBarStatus && mySize > 1199 ? "sidebar-open" : ""
+            }`}
+          >
+            <Routes>
+              <Route path="*" element={<Navigate to="/" replace />} />
+              <Route path="/" element={<Home />} />
+              <Route path="/following/" element={<Following />}>
+                <Route index element={<PageOverview />} />
+                <Route path="live" element={<PageLive />} />
+                <Route path="videos" element={<PageVideos />} />
+                <Route path="categories" element={<PageCategories />} />
+              </Route>
+              <Route path="/browse/" element={<Browse />}>
+                <Route index element={<PageAllCategories />} />
+                <Route path="all" element={<PageAllLive />} />
+              </Route>
+            </Routes>
+          </div>
         </div>
-      </div>
-    </ThemeProvider>
+      </ThemeProvider>
+    // </StarknetConfig>
   );
 };
 

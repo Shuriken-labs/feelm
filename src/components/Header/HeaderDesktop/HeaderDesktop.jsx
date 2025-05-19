@@ -1,4 +1,5 @@
 import { StyledHeaderDesktop } from "./HeaderDesktop.styled";
+import { useEffect, useState } from "react";
 
 //React
 import { Link } from "react-router-dom";
@@ -13,9 +14,35 @@ import { CgCrown } from "react-icons/cg";
 // Components
 import ProfileDesktop from "./ProfileDesktop";
 import SideBar from "./SideBar";
+import {
+  argent,
+  Connector,
+  useAccount,
+  useConnect,
+  useDisconnect,
+} from "@starknet-react/core";
+
+import { useStarknetkitConnectModal } from "starknetkit";
 
 const HeaderDesktop = ({ mySize }) => {
   const { pathname } = useLocation();
+  const { disconnect } = useDisconnect();
+
+
+  const { connect, connectors } = useConnect();
+  const { starknetkitConnectModal } = useStarknetkitConnectModal({
+    connectors: connectors,
+  });
+
+  async function connectWallet() {
+    const { connector } = await starknetkitConnectModal();
+    if (!connector) {
+      return;
+    }
+    await connect({ connector });
+  }
+
+  const { address } = useAccount();
 
   return (
     <StyledHeaderDesktop>
@@ -63,17 +90,24 @@ const HeaderDesktop = ({ mySize }) => {
               <div className="right-icons">
                 <ul>
                   <li>
-                    <CgCrown />
-                  </li>
-                  <li>
                     <BiArchive />
                   </li>
-                  <li>
-                    <BiMessageAlt />
-                  </li>
+
                   <li className="bits">
-                    <BsSuitDiamondFill />
-                    <span>Get Bits</span>
+                    <span
+                      onClick={() => {
+                        if (address) {
+                          disconnect();
+                        } else {
+                          connectWallet();
+                        }
+                      }}
+                      style={{ cursor: "pointer" }}
+                    >
+                      {address
+                        ? address.slice(0, 6) + "..." + address.slice(-4)
+                        : "Connect Wallet"}
+                    </span>
                   </li>
                 </ul>
               </div>
